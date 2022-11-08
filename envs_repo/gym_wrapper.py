@@ -45,8 +45,7 @@ for i in range(dataN):
             pp[s,i] = data[i][0].iloc[s,1]
         symBe = sym
         base = data[i][0].iloc[l-1,1]  
-print('dddddddddddddd1   ',ss[:10,308]) 
-print('dddddddddddddd1   ',pp[:10,308]) 
+
 ss, _, _ = standardScale(ss)
 pp, _, _ = standardScale(pp)
 window_size = 4
