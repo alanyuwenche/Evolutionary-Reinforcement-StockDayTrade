@@ -16,7 +16,7 @@ def standardScale(aa):
     return x_std, meanV, stdV  
 
 
-with open('/content/Evolutionary-Reinforcement-Learning/envs_repo/train_N.pickle','rb') as f:
+with open('/content/Evolutionary-Reinforcement-StockDayTrade/envs_repo/train_CZF.pickle','rb') as f:
     data = pickle.load(file = f)
 l = 284 #13:29=> the last one
 dataN = len(data)
@@ -45,7 +45,8 @@ for i in range(dataN):
             pp[s,i] = data[i][0].iloc[s,1]
         symBe = sym
         base = data[i][0].iloc[l-1,1]  
-
+print('dddddddddddddd1   ',ss[:10,308]) 
+print('dddddddddddddd1   ',pp[:10,308]) 
 ss, _, _ = standardScale(ss)
 pp, _, _ = standardScale(pp)
 window_size = 4
