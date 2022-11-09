@@ -26,7 +26,7 @@ symBe = ''
 base = 0
 
 for i in range(dataN):
-    sym = (data[i][1])[3:4] #J, K, L
+    sym = (data[i][1])[3:5] #20221109
     if sym != symBe:
 
         #for s in range(l-1):
