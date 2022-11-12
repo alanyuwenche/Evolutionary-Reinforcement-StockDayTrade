@@ -8,10 +8,8 @@ def standardScale(aa):
     #K = 1.96 #95%
     meanV = np.mean(aa)
     stdV = np.std(aa)
-    #ss_meanV = 0.00088012709079
-    #ss_stdV = 0.0104573489
-    #pp_meanV = 11136.855753
-    #pp_stdV = 1094.2235127
+    #pp_meanV = 92.028267
+    #pp_stdV = 50.173733
     x_std = (aa-meanV)/(K*stdV)
     return x_std, meanV, stdV  
 
@@ -46,7 +44,7 @@ for i in range(dataN):
         symBe = sym
         base = data[i][0].iloc[l-1,1]  
 
-ss, _, _ = standardScale(ss)
+#ss, _, _ = standardScale(ss)#20221111 僅pp作正規化
 pp, _, _ = standardScale(pp)
 window_size = 4
 tradeCost = 47
@@ -90,7 +88,7 @@ class GymWrapper(gym.Env):
 
           if int(self.position[0]) == -1:
               sold_price = self.inventory.pop(0)
-              reward = 50*(sold_price - self.price[self.d][0].iloc[self.t-1,1])-2*self.commission
+              reward = 2000*(sold_price - self.price[self.d][0].iloc[self.t-1,1])-2*self.commission
               self.done = True
               self.position = np.array([0.])
       elif action == 2:
@@ -101,7 +99,7 @@ class GymWrapper(gym.Env):
 
           if int(self.position[0]) == 1:
               bought_price = self.inventory.pop(0)
-              reward = 50*(self.price[self.d][0].iloc[self.t-1,1] - bought_price)-2*self.commission
+              reward = 2000*(self.price[self.d][0].iloc[self.t-1,1] - bought_price)-2*self.commission
               self.done = True
               self.position = np.array([0.])
        
@@ -117,13 +115,13 @@ class GymWrapper(gym.Env):
           if len(self.inventory) > 0:
               if int(self.position[0]) == 1:
                   bought_price = self.inventory.pop(0)
-                  reward = 50*(self.price[self.d][0].iloc[self.t-1,1] - bought_price)-2*self.commission
+                  reward = 2000*(self.price[self.d][0].iloc[self.t-1,1] - bought_price)-2*self.commission
                   #observation[self.state_dim+1] = np.array([0.])
                   observation[5] = np.array([0.])#20220509
 
               elif int(self.position[0]) == -1:
                   sold_price = self.inventory.pop(0)
-                  reward = 50*(sold_price - self.price[self.d][0].iloc[self.t-1,1])-2*self.commission
+                  reward = 2000*(sold_price - self.price[self.d][0].iloc[self.t-1,1])-2*self.commission
                   #observation[self.state_dim+1] = np.array([0.])
                   observation[5] = np.array([0.])#20220509
       info = {'env.d':self.d, 'env.t':self.t, 'reward':reward, 'tradein t':self.st}
