@@ -166,7 +166,7 @@ class ERL_Trainer:
 			test_mean = np.mean(test_scores); test_std = (np.std(test_scores))
 			tracker.update([test_mean], self.total_frames)
 
-			if (test_N > 4) and (no_T > 1):
+			if (test_N > 1) and (no_T > 2):
 			#if test_N > 6:
 				f = open("./data/logfile.txt","a")
 				f.write('Gen: %d\t' % gen)
