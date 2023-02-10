@@ -8,13 +8,19 @@ def standardScale(aa):
     #K = 1.96 #95%
     meanV = np.mean(aa)
     stdV = np.std(aa)
-    #pp_meanV = 92.028267
-    #pp_stdV = 50.173733
+    #pp_meanV = 92.028267 #train_CZF
+    #pp_stdV = 50.173733 #train_CZF
+    #ss_meanV = 0.0014739 #train_CCF
+    #ss_stdV = 0.0240361 #train_CCF
+    #pp_meanV = 49.578292 #train_CCF
+    #pp_stdV = 10.992933 #train_CCF
     x_std = (aa-meanV)/(K*stdV)
+  
     return x_std, meanV, stdV  
 
 
-with open('/content/Evolutionary-Reinforcement-StockDayTrade/envs_repo/train_CZF.pickle','rb') as f:
+#with open('/content/Evolutionary-Reinforcement-StockDayTrade/envs_repo/train_CZF.pickle','rb') as f:
+with open('/content/Evolutionary-Reinforcement-StockDayTrade/envs_repo/train_CCF.pickle','rb') as f:
     data = pickle.load(file = f)
 l = 284 #13:29=> the last one
 dataN = len(data)
@@ -44,8 +50,15 @@ for i in range(dataN):
         symBe = sym
         base = data[i][0].iloc[l-1,1]  
 
+############## train_CZF #####################
 #ss, _, _ = standardScale(ss)#20221111 僅pp作正規化
+#pp, _, _ = standardScale(pp)
+###########################################
+############## train_CCF #####################
+ss, _, _ = standardScale(ss)#max: 1.235149561798326  min: -1.2513307744776638
 pp, _, _ = standardScale(pp)
+################################################
+#print('maxmaxmaxmax  ',np.max(ss),' minminminmin ',np.min(ss))
 window_size = 4
 tradeCost = 47
    
