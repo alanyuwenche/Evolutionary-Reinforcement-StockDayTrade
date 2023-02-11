@@ -96,7 +96,7 @@ class ERL_Trainer:
 		#Start Test rollouts
 		if gen % self.args.test_frequency == 0:
 			self.test_flag = True
-			for pipe in self.test_task_pipes: pipe[0].send(0) #20200520 pipe的物件結構為tuple- (connection, connection)
+			for pipe in self.test_task_pipes: pipe[0].send(0) #20220520 pipe的物件結構為tuple- (connection, connection)
 
 
 		############# UPDATE PARAMS USING GRADIENT DESCENT ##########
@@ -152,11 +152,10 @@ class ERL_Trainer:
 			test_scores = []
 			test_N = 0  #有交易且長度小於200 20220520
 			no_T = 0  #無交易次數 20220527
-			#infos = [] #20220523
 			for pipe in self.test_result_pipes: #Collect all results
 				#_, fitness, _, _ = pipe[1].recv()
 				_, fitness, fr, traj = pipe[1].recv() #20220520 配合測試時選模型-若當天沒任何動作: fitness=0,traj=280
-				#infos.append(traj[-1][5])#20220523
+				#print('TTTTTTTTTTTTTTTTTTTT  ',traj[:10])#20230210 配合打開runner.py,可驗證軌跡資料
 				self.best_score = max(self.best_score, fitness)
 				gen_max = max(gen_max, fitness)
 				test_scores.append(fitness)
